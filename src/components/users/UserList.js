@@ -3,20 +3,40 @@
  */
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Card, CardHeader} from 'material-ui/Card';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 class UserList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: []
+            users: [],
         };
     }
 
+
     render() {
+
+        const style = {
+            margin: '50px 300px',
+        };
         return (
-            <div>
-                {this.state.users.map((user, index) =>
-                    <h1 key={index}>{user.login}</h1>
-                )}
+            <div style={style}>
+                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                    <div>
+                        <h1 style={{textAlign: 'center'}}>List users account on gitHub</h1>
+                        {this.state.users.map((user, index) =>
+                            <Card key={index} style={{margin: '16px'}} expanded={this.state.expanded}>
+                                <CardHeader
+                                    title={user.login}
+                                    subtitle={user.type}
+                                    avatar={user.avatar_url}
+                                    actAsExpander={true}
+                                />
+                            </Card>
+                        )}
+                    </div>
+                </MuiThemeProvider>
             </div>
         );
     }
